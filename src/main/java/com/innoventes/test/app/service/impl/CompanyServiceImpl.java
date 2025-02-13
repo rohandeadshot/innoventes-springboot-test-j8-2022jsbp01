@@ -31,6 +31,20 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
+	public Company findById(Long id){
+		Company comp = companyRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Company not found with id: " + id, null));
+		return comp;
+	}
+
+	@Override
+	public Company findByCompanyCode(String companyCode) {
+        return companyRepository.findByCompanyCode(companyCode)
+            .orElseThrow(() -> new ResourceNotFoundException(
+                "Company not found with code: " + companyCode, companyCode));
+    }
+
+	@Override
 	public Company addCompany(Company company) throws ValidationException {
 		return companyRepository.save(company);
 	}

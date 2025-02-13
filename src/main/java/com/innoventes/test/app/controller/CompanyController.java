@@ -66,6 +66,16 @@ public class CompanyController {
 		return ResponseEntity.created(location).body(newCompanyDTO);
 	}
 
+	@GetMapping("/companies/{id}")
+	public ResponseEntity<Company> getById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(companyService.findById(id));
+    }
+
+	@GetMapping("/code/{companyCode}")
+    public ResponseEntity<Company> getByCode(@PathVariable String companyCode) {
+        return ResponseEntity.ok(companyService.findByCompanyCode(companyCode));
+    }
+
 	@PutMapping(value = "/companies/{id}")
 	public ResponseEntity<CompanyDTO> updateCompany(@PathVariable(value = "id") Long id,
 			@Valid @RequestBody CompanyDTO companyDTO) throws ValidationException {
